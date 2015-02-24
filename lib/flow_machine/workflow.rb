@@ -1,8 +1,11 @@
 require "active_support/core_ext/module/delegation"
 require "active_support/core_ext/object/try"
+require "flow_machine/workflow/factory_methods"
 
 module FlowMachine
   module Workflow
+    extend FlowMachine::FactoryMethods
+
     def self.included(base)
       base.extend(ClassMethods)
       base.send(:attr_reader, :object)

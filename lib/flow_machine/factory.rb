@@ -1,27 +1,24 @@
 module FlowMachine
-  class Factory
+  # Deprecated in favor of calling these methods directly off of FlowMachine
+  # which are defined in FlowMachine::FactoryMethods
+  module Factory
     def self.workflow_for(object, options = {})
-      # If the object is enumerable, delegate. This allows workflow_for
-      # as shorthand
-      return workflow_for_collection(object, options) if object.respond_to?(:map)
-
-      klazz = workflow_class_for(object)
-      return nil unless klazz
-      klazz.new(object, options)
+      deprecate :workflow_for, :for
+      FlowMachine::Workflow.for(object, options)
     end
 
     def self.workflow_for_collection(collection, options = {})
-      collection.map { |item| workflow_for(item, options) }
+      deprecate :workflow_for_collection, :for_collection
+      FlowMachine::Workflow.for_collection(collection, options)
     end
 
     def self.workflow_class_for(object_or_class)
-      if object_or_class.is_a? Class
-        "#{object_or_class.name}Workflow".constantize
-      else
-        workflow_class_for(object_or_class.class)
-      end
-    rescue NameError # if the workflow class doesn't exist
-      nil
+      deprecate :workflow_class_for, :class_for
+      FlowMachine::Workflow.class_for(object_or_class)
+    end
+
+    def self.deprecate(old_method_name, new_method_name)
+      warn "FlowMachine::Factory.#{old_method_name} is deprecated. Use FlowMachine::Workflow.#{new_method_name} instead."
     end
   end
 end

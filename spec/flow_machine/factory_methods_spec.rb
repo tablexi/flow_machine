@@ -1,12 +1,12 @@
-RSpec.describe FlowMachine::Factory do
+RSpec.describe FlowMachine::Workflow do
   class TestClass; end
 
   class TestClassWorkflow
     include FlowMachine::Workflow
   end
 
-  describe '.workflow_class_for' do
-    subject(:workflow_class) { described_class.workflow_class_for(target) }
+  describe '.class_for' do
+    subject(:workflow_class) { described_class.class_for(target) }
 
     describe 'with a class' do
       let(:target) { TestClass }
@@ -19,8 +19,8 @@ RSpec.describe FlowMachine::Factory do
     end
   end
 
-  describe '.workflow_for' do
-    subject(:workflow) { described_class.workflow_for(target) }
+  describe '.for' do
+    subject(:workflow) { described_class.for(target) }
     class SomeNewClass; end
 
     describe 'not found' do
@@ -41,7 +41,7 @@ RSpec.describe FlowMachine::Factory do
   end
 
   describe '.workflow_for_collection' do
-    subject(:result) { described_class.workflow_for_collection(target) }
+    subject(:result) { described_class.for_collection(target) }
     let(:target) { [TestClass.new, TestClass.new] }
     it { should match [an_instance_of(TestClassWorkflow), an_instance_of(TestClassWorkflow)] }
   end
