@@ -172,6 +172,6 @@ class PublishedState < FlowMachine::WorkflowState
 end
 
 workflow = PublishingWorkflow.new(blog_post, current_user: User.find(123))
-workflow.published
+workflow.publish
 blog_post.published_by # => User #123
 ```
