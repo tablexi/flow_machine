@@ -8,6 +8,10 @@ The basic features will work with any PORO, and more features and callbacks are 
 
 After exploring several of the existing Ruby state machine options, they all seem too tightly coupled to an ORM models and tend to pollute the object model's code far too much. The goal of this gem is to provide a clean, testable interface for working with a state machine that decouples as much as possible from the model object itself.
 
+## Upgrading
+
+See [UPGRADE.md](UPGRADE.md) for details
+
 ## Simple Usage
 
 ```ruby
@@ -131,6 +135,28 @@ Declared as an option to the `transition` method inside an `event` block.
 * `after` Will be called after the transition has happened successfully. Useful when you only want something to trigger when moving from a specific state to another.
 
 `transition to: :published, after: :send_mailing_list_email`
+
+## FlowMachine::Workflow.for
+
+You can easily access the workflow for your particular object, class, or collection of objects.
+
+Examples:
+
+```ruby
+blog = BlogPost.new
+FlowMachine::Workflow.for(blog) # => BlogPostWorkflow
+
+FlowMachine::Workflow.for(BlogPost) # => BlogPostWorkflow
+```
+
+You can also create an collection of workflow objects via:
+
+```ruby
+blog_posts = BlogPost.all
+
+FlowMachine::Workflow.collection_for(blog_posts) # => [BlogPostWorkfow.new(blog_post[0]), ..., BlogPostWorkflow.new(blog_post[n])
+```
+
 
 ## Scopes and Predicate methods
 

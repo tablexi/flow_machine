@@ -1,7 +1,6 @@
 $:.unshift(File.dirname(__FILE__))
 
 require "flow_machine/workflow"
-require "flow_machine/factory"
 require "flow_machine/workflow/factory_methods"
 require "flow_machine/workflow_state"
 require "flow_machine/callback"
