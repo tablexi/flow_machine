@@ -12,6 +12,10 @@ After exploring several of the existing Ruby state machine options, they all see
 
 See [UPGRADE.md](UPGRADE.md) for details
 
+## Requirements
+
+Ruby 2.0+
+
 ## Simple Usage
 
 ```ruby
