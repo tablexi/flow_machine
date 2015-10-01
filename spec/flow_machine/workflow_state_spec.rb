@@ -42,12 +42,13 @@ RSpec.describe FlowMachine::WorkflowState do
     end
   end
 
-  describe 'events' do
+  describe 'invalid transitions' do
     let(:state_class2) do
       Class.new(described_class) do
         def self.state_name; :test2; end
       end
     end
+
     before :each do
       state_class.event(:event1) { transition to: :test2 }
       workflow_class.refresh_state_methods!
@@ -57,6 +58,18 @@ RSpec.describe FlowMachine::WorkflowState do
     it 'returns false when trying to transition to the current state' do
       expect(object).to receive(:state).and_return :test2
       expect(workflow.event1).to be false
+    end
+
+    it 'sets an invalid_event error when trying to transition to the curent state' do
+      expect(object).to receive(:state).and_return :test2
+      workflow.event1
+      expect(workflow.guard_errors).to eq([:invalid_event])
+    end
+
+    it 'sets an invalid_event error when trying to may to the current state' do
+      expect(object).to receive(:state).and_return :test2
+      expect(workflow).not_to be_may_event1
+      expect(workflow.guard_errors).to eq([:invalid_event])
     end
   end
 
@@ -70,7 +83,7 @@ RSpec.describe FlowMachine::WorkflowState do
         state.event1
       end
 
-      context 'may?' do
+      describe 'may?' do
         it 'is able to transition if the guard returns true' do
           expect(state).to receive(:guard1?).and_return true
           expect(state.may_event1?).to be true
