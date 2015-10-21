@@ -91,10 +91,16 @@ module FlowMachine
       end
 
       # Defines an instance method on Workflow that delegates to the
-      # current state, but only if the current_state implements the method
+      # current state. If the current state does not support the method, then
+      # add an :invalid_event error to the guard_errors.
       def define_state_method(method_name)
         define_method method_name do |*args|
-          current_state.respond_to?(method_name) && current_state.send(method_name, *args)
+          if current_state.respond_to?(method_name)
+            current_state.send(method_name, *args)
+          else
+            self.guard_errors = [:invalid_event]
+            false
+          end
         end
       end
 
@@ -114,7 +120,7 @@ module FlowMachine
 
     # extend Forwardable
     # def_delegators :current_state, :guard_errors
-    delegate :guard_errors, to: :current_state
+    delegate :guard_errors, :guard_errors=, to: :current_state
 
     def initialize(object, options = {})
       @object = object
