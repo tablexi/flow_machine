@@ -79,7 +79,7 @@ Calling the transition with a failing guard will result in the object not being 
 
 #### guard_errors
 
-After calling `may_xxx?`, the workflow will have an array of the guard methods that failed. to avoid additional dependencies, the developer is responsible for converting these to human readable messages (using I18n or the like).
+After calling `may_xxx?`, the workflow will have an array of the guard methods that failed. To avoid additional dependencies, the developer is responsible for converting these to human readable messages (using I18n or the like). This may include `:invalid_event` in the case where a transition from the current state is not defined.
 
 ```ruby
 class DraftState < FlowMachine::WorkflowState
