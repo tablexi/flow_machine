@@ -10,7 +10,7 @@ After exploring several of the existing Ruby state machine options, they all see
 
 ## Upgrading
 
-See [UPGRADE.md](UPGRADE.md) for details
+[CHANGELOG.md](CHANGELONG.md) will contain changes that need to be made at each version
 
 ## Requirements
 
