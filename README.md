@@ -10,7 +10,7 @@ After exploring several of the existing Ruby state machine options, they all see
 
 ## Upgrading
 
-[CHANGELOG.md](CHANGELONG.md) will contain changes that need to be made at each version
+[CHANGELOG.md](CHANGELOG.md) will contain changes that need to be made at each version
 
 ## Requirements
 
