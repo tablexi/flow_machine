@@ -4,6 +4,7 @@ Build finite state machines in a backend-agnostic, class-centric way.
 
 The basic features will work with any PORO, and more features and callbacks are available when used with an ORM like `ActiveRecord` and/or `ActiveModel::Dirty`.
 
+ _Circle CI Status:_ [![Circle CI](https://circleci.com/gh/tablexi/flow_machine.svg?style=svg)](https://circleci.com/gh/tablexi/flow_machine)
 ## *Raison d'être*
 
 After exploring several of the existing Ruby state machine options, they all seem too tightly coupled to an ORM models and tend to pollute the object model's code far too much. The goal of this gem is to provide a clean, testable interface for working with a state machine that decouples as much as possible from the model object itself.
