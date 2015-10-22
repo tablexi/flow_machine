@@ -1,9 +1,9 @@
-# 0.2.1
+# 0.2.1 - 2015-10-21
 
 * Calling a `may_xxx?` method when that transition is not defined for the current
   state now adds `:invalid_event` to the `guard_errors`. (PR #11, Issue #10)
 
-# 0.2.0
+# 0.2.0 - 2015-04-01
 
 * Class methods that used to be on the root `FlowMachine` have been moved to `FlowMachine::Workflow`. (deprecated in 0.1.1)
 
