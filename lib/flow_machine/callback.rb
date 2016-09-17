@@ -1,8 +1,8 @@
-require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/array/extract_options'
 
 class FlowMachine::Callback
   attr_accessor :method, :options
+
   def initialize(*args, &block)
     @options = args.extract_options!
     @method = args.shift unless block
@@ -16,7 +16,7 @@ class FlowMachine::Callback
 
   # Runs the callback without any validations
   def call!(target)
-    run_method_or_lambda(target, method.presence || @block)
+    run_method_or_lambda(target, method || @block)
   end
 
   def run_method_or_lambda(target, method)
