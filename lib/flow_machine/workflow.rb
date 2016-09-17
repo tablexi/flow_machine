@@ -1,4 +1,3 @@
-require "active_support/core_ext/module/delegation"
 require "flow_machine/workflow/factory_methods"
 
 module FlowMachine
@@ -119,9 +118,8 @@ module FlowMachine
     attr_accessor :options, :previous_state_persistence_callbacks, :previous_state
     attr_accessor :changes
 
-    # extend Forwardable
-    # def_delegators :current_state, :guard_errors
-    delegate :guard_errors, :guard_errors=, to: :current_state
+    extend Forwardable
+    def_delegators :current_state, :guard_errors, :guard_errors=
 
     def initialize(object, options = {})
       @object = object
