@@ -1,11 +1,11 @@
-require "active_support/core_ext/module/delegation"
 require "active_support/inflector"
 
 class FlowMachine::WorkflowState
   attr_reader :workflow
   attr_accessor :guard_errors
 
-  delegate :object, :options, to: :workflow
+  extend Forwardable
+  def_delegators :workflow, :object, :options
 
   module ClassMethods
     attr_accessor :state_callbacks
