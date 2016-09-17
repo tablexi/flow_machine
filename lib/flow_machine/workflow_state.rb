@@ -4,9 +4,6 @@ class FlowMachine::WorkflowState
   attr_reader :workflow
   attr_accessor :guard_errors
 
-  extend Forwardable
-  def_delegators :workflow, :object, :options
-
   module ClassMethods
     attr_accessor :state_callbacks
     attr_accessor :expose_to_workflow_methods
@@ -137,6 +134,14 @@ class FlowMachine::WorkflowState
 
   def ==(other)
     self.class == other.class
+  end
+
+  def object
+    workflow.object
+  end
+
+  def options
+    workflow.options
   end
 
   private

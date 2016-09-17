@@ -263,4 +263,19 @@ RSpec.describe FlowMachine::WorkflowState do
       end
     end
   end
+
+  describe 'when the sublcass uses ActiveSupport delegate' do
+    class TestActiveSupportDelegate < described_class
+      require "active_support/core_ext/module/delegation"
+
+      delegate :some_method, to: :object
+    end
+
+    # Using Forwardable/def_delegator in conjunction with ActiveSupport's
+    # `delegate` causes `instance_delegate': wrong number of arguments (given 2,
+    # expected 1)` errors.
+    it "does not cause problems" do
+      TestActiveSupportDelegate.new(object)
+    end
+  end
 end
