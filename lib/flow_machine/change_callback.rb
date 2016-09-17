@@ -1,5 +1,6 @@
 class FlowMachine::ChangeCallback < FlowMachine::StateCallback
   attr_accessor :field
+
   def initialize(field, *args, &block)
     @field = field
     super(*args, &block)

@@ -19,7 +19,16 @@ RSpec.describe FlowMachine::Callback do
       expect(object).to receive(:some_method)
       callback.call(object)
     end
+  end
 
+  describe 'with a block and a method' do
+    let(:callback) { described_class.new(:some_method) { block_method } }
+
+    # TODO: Deprecate this usage, then raise and error in later versions
+    it 'calls the block' do
+      expect(object).to receive(:block_method)
+      callback.call(object)
+    end
   end
 
   describe 'callback with if' do

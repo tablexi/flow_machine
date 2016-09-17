@@ -1,11 +1,10 @@
-require 'active_support/core_ext/array/extract_options'
-
 class FlowMachine::Callback
   attr_accessor :method, :options
 
   def initialize(*args, &block)
-    @options = args.extract_options!
-    @method = args.shift unless block
+    # Essentially, ActiveSupport Hash#extract_options!
+    @options = args.last.is_a?(::Hash) ? args.pop : {}
+    @method = args.first unless block
     @block = block
   end
 
