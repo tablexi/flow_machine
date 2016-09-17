@@ -121,8 +121,7 @@ RSpec.describe FlowMachine::Workflow do
 
       it 'does not call for invalid states' do
         expect(workflow).not_to receive(:after_transition_callback)
-        # Will throw an ArgumentError for invalid state
-        expect { workflow.transition to: :invalid_state }.to raise_error
+        expect { workflow.transition to: :invalid_state }.to raise_error(ArgumentError)
       end
 
       it 'does not call for ending in the same state' do
