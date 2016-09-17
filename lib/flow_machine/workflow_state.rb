@@ -110,7 +110,7 @@ class FlowMachine::WorkflowState
   end
 
   def fire_callbacks(event, changes = {})
-    return unless self.class.state_callbacks.try(:[], event)
+    return unless self.class.state_callbacks && self.class.state_callbacks[event]
     fire_callback_list self.class.state_callbacks[event], changes
   end
 

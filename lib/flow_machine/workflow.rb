@@ -1,5 +1,4 @@
 require "active_support/core_ext/module/delegation"
-require "active_support/core_ext/object/try"
 require "flow_machine/workflow/factory_methods"
 
 module FlowMachine
@@ -105,7 +104,9 @@ module FlowMachine
       end
 
       def add_state_methods_from(state_class)
-        state_class.expose_to_workflow_methods.try(:each) do |method_name|
+        return unless state_class.expose_to_workflow_methods
+
+        state_class.expose_to_workflow_methods.each do |method_name|
           define_state_method(method_name) unless method_defined?(method_name)
         end
       end
@@ -196,7 +197,8 @@ module FlowMachine
 
     def fire_callbacks(event)
       self.class.callbacks ||= {}
-      self.class.callbacks[event].try(:each) do |callback|
+      return unless self.class.callbacks[event]
+      self.class.callbacks[event].each do |callback|
         callback.call(self, changes)
       end
     end
