@@ -15,3 +15,7 @@ gemspec
 
 gem "pry"
 gem "rake"
+
+group :test do
+  gem "rspec_junit_formatter"
+end

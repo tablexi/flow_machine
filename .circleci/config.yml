@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.3.7
+        environment:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: ubuntu
+    steps:
+      - checkout
+
+      # Gems
+      - restore_cache:
+          key: flow-machine-{{ .Branch }}
+      - run: bundle install --path vendor/bundle
+      - save_cache:
+          key: flow-machine-{{ .Branch }}
+          paths:
+            - vendor/bundle
+
+      # RSpec
+      - type: shell
+        command: |
+          xvfb-run -a bundle exec rspec --profile 10 \
+                                        --color \
+                                        --format RspecJunitFormatter \
+                                        --out test_results/rspec.xml \
+                                        --format progress \
+                                        $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      # Teardown
+      - store_test_results:
+          path: test_results
