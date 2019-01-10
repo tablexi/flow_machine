@@ -1,6 +1,7 @@
 require "active_support/core_ext/module/delegation"
 require "active_support/core_ext/object/try"
 require "flow_machine/workflow/factory_methods"
+require "flow_machine/workflow/model_extension"
 
 module FlowMachine
   module Workflow
@@ -8,31 +9,11 @@ module FlowMachine
 
     def self.included(base)
       base.extend(ClassMethods)
+      base.extend(ModelExtension)
       base.send(:attr_reader, :object)
     end
 
     module ClassMethods
-      # resolves to
-      # class Model
-      #   def self.published
-      #     where(status: 'published')
-      #   end
-      #
-      #   def published?
-      #     self.status == 'published'
-      #   end
-      # end
-      def create_scopes_on(content_class)
-        self.state_names.each do |status|
-          content_class.singleton_class.send(:define_method, status) do
-            where(status: status)
-          end
-
-          content_class.send(:define_method, "#{status}?") do
-            self.status == status
-          end
-        end
-      end
 
       attr_accessor :callbacks
 
