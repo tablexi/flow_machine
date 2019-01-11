@@ -1,3 +1,10 @@
+# 0.2.2 - 2019-01-11
+
+* Fix issue where the scopes and predicates created by `FlowMachine::Workflow.create_scopes_on`
+  use the wrong attribute. (https://github.com/tablexi/flow_machine/pull/14)
+* Upgrade to RSpec 3.8
+* Run test suite using Circle 2.0
+
 # 0.2.1 - 2015-10-21
 
 * Calling a `may_xxx?` method when that transition is not defined for the current
