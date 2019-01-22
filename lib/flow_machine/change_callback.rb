@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FlowMachine
   class ChangeCallback < FlowMachine::StateCallback
     attr_accessor :field

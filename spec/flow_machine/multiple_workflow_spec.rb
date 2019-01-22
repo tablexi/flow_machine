@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe FlowMachine::Workflow do
   let(:state_class1) do
     Class.new(FlowMachine::WorkflowState) do

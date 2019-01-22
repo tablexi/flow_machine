@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe FlowMachine::ChangeCallback do
   subject(:callback) { described_class.new(:field, :method, if: :condition?) }
 

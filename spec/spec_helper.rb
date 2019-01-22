@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 GEM_ROOT = File.expand_path("..", __dir__)
 $LOAD_PATH.unshift File.join(GEM_ROOT, "lib")
 

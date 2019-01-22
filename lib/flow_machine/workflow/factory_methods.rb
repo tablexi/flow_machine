@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # These methods are extended in the base FlowMachine module
 module FlowMachine
   module FactoryMethods
