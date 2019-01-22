@@ -43,9 +43,14 @@ end
 
 class PublishedState < FlowMachine::WorkflowState
   on_enter :notify_email_author
+  on_exit :clear_published_at
 
   def notify_email_author
     # Send an email
+  end
+
+  def clear_published_at
+    object.published_at = nil
   end
 end
 ```
@@ -114,7 +119,8 @@ State and Workflow callbacks accept `if` and `unless` options. They may be a sym
 
 Declared in the `WorkflowState` class.
 
-* `on_enter` Called after the object has transitioned into the state
+* `on_exit` Called after the object has transitioned out of the state.
+* `on_enter` Called after the object has transitioned into the state. Triggered after the previous state's `on_exit`.
 
 The following are available when `Workflow#save` is used (`workflow.save` or `workflow.transition!`) *Not called if you call `save` directly on the decorated model*.
 
@@ -137,7 +143,7 @@ The following are available when `Workflow#save` is used:
 
 Declared as an option to the `transition` method inside an `event` block.
 
-* `after` Will be called after the transition has happened successfully. Useful when you only want something to trigger when moving from a specific state to another.
+* `after` Will be called after the transition has happened successfully including persistance (if applicable). Useful when you only want something to trigger when moving from a specific state to another.
 
 `transition to: :published, after: :send_mailing_list_email`
 
