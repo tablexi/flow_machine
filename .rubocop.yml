@@ -4,6 +4,9 @@ inherit_from:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+
 Metrics/LineLength:
   Max: 120
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe FlowMachine::WorkflowState do
   class StateTestClass < described_class
     def self.state_name
