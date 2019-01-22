@@ -1,8 +1,10 @@
-require 'ostruct'
+require "ostruct"
 
 RSpec.describe FlowMachine::WorkflowState do
   class DraftClass < described_class
-    def self.state_name; :draft; end
+    def self.state_name
+      :draft
+    end
     on_exit { object.published_at = :exited_draft }
     event :publish do
       transition to: :published
@@ -10,12 +12,15 @@ RSpec.describe FlowMachine::WorkflowState do
   end
 
   class PublishedClass < described_class
-    def self.state_name; :published; end
+    def self.state_name
+      :published
+    end
     on_enter :entering
     on_exit :exiting
     def entering
       object.published_at = :entered_published
     end
+
     def exiting
       object.published_at = :exited_published
     end
@@ -37,6 +42,7 @@ RSpec.describe FlowMachine::WorkflowState do
 
   describe "when transitioning from draft to published" do
     let(:object) { OpenStruct.new(state: :draft) }
+
     it "triggers the entering of published state" do
       expect { workflow.publish }.to change(object, :published_at).to be(:entered_published)
     end

@@ -1,0 +1,16 @@
+inherit_from:
+  - .rubocop_todo.yml
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Metrics/LineLength:
+  Max: 120
+
+Lint/HandleExceptions:
+  Exclude:
+    - 'Rakefile'
+
+Metrics/BlockLength:
+  Exclude:
+     - 'spec/**/*'

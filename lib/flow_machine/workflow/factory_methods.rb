@@ -8,6 +8,7 @@ module FlowMachine
 
       klazz = class_for(object)
       return nil unless klazz
+
       klazz.new(object, options)
     end
 
@@ -19,7 +20,7 @@ module FlowMachine
       if object_or_class.is_a? Class
         "#{object_or_class.name}Workflow".constantize
       else
-        self.class_for(object_or_class.class)
+        class_for(object_or_class.class)
       end
     rescue NameError # if the workflow class doesn't exist
       nil

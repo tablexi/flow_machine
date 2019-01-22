@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
 require "flow_machine/version"
@@ -17,7 +17,8 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency 'activesupport', '>= 3.2'
-  s.add_development_dependency "rspec", '~> 3.8.0'
+  s.add_dependency "activesupport", ">= 3.2"
+  s.add_development_dependency "rspec", "~> 3.8.0"
   s.add_development_dependency "rspec-its"
+  s.add_development_dependency "rubocop"
 end

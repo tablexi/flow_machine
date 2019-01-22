@@ -14,11 +14,10 @@ module FlowMachine
     end
 
     module ClassMethods
-
       attr_accessor :callbacks
 
       def state_names
-        states.keys.map &:to_s
+        states.keys.map(&:to_s)
       end
 
       def states
@@ -112,7 +111,7 @@ module FlowMachine
     def current_state_name
       object.send(self.class.state_method)
     end
-    alias_method :state, :current_state_name
+    alias state current_state_name
 
     def previous_state_name
       @previous_state.try(:name)
@@ -139,7 +138,7 @@ module FlowMachine
       self.changes = object.changes
       # If the model has a default state from the database, then it doesn't get
       # included in `changes` when you're first saving it.
-      self.changes[state_method.to_s] ||= [nil, current_state_name] if object.new_record?
+      changes[state_method.to_s] ||= [nil, current_state_name] if object.new_record?
 
       fire_callbacks(:before_save)
       current_state.fire_callbacks(:before_change, changes)
@@ -157,7 +156,7 @@ module FlowMachine
     # Useful for using in if/unless on state and after_save callbacks so you can
     # run the callback only on the initial persistence
     def create?
-      self.changes[state_method.to_s].try(:first).blank?
+      changes[state_method.to_s].try(:first).blank?
     end
 
     def persist_object
@@ -165,7 +164,8 @@ module FlowMachine
     end
 
     def current_state_name=(new_state)
-      raise ArgumentError.new("invalid state: #{new_state}") unless self.class.state_names.include?(new_state.to_s)
+      raise ArgumentError, "invalid state: #{new_state}" unless self.class.state_names.include?(new_state.to_s)
+
       object.send("#{self.class.state_method}=", new_state)
     end
 
