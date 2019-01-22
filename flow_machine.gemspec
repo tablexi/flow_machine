@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "activesupport", ">= 3.2"
-  s.add_development_dependency "rspec", "~> 3.8.0"
+  s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-its"
   s.add_development_dependency "rubocop"
 end
