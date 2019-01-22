@@ -78,6 +78,11 @@ class FlowMachine::WorkflowState
       add_callback(:after_enter, FlowMachine::StateCallback.new(*args, &block))
     end
 
+    # Called when the worklow `transition`s out of the state
+    def on_exit(*args, &block)
+      add_callback(:on_exit, FlowMachine::StateCallback.new(*args, &block))
+    end
+
     # Happens before persistence if the field on the object has changed
     def before_change(field, *args, &block)
       add_callback(:before_change, FlowMachine::ChangeCallback.new(field, *args, &block))
@@ -127,7 +132,10 @@ class FlowMachine::WorkflowState
 
   def transition(options = {})
     workflow.transition(options).tap do |new_state|
-      new_state.fire_callbacks(:on_enter) if new_state
+      if new_state != workflow.previous_state
+        workflow.previous_state.fire_callbacks(:on_exit)
+        new_state.fire_callbacks(:on_enter)
+      end
     end
   end
 

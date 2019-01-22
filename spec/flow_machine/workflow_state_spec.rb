@@ -201,6 +201,28 @@ RSpec.describe FlowMachine::WorkflowState do
     end
   end
 
+  describe 'on_enter' do
+    let(:state) { state_class.new(workflow) }
+    context 'the method is on the workflow' do
+      before { state_class.on_enter :workflow_hook }
+      it "can call the method" do
+        expect(workflow).to receive(:workflow_hook)
+        state.fire_callbacks(:on_enter, {})
+      end
+    end
+  end
+
+  describe 'on_exit' do
+    let(:state) { state_class.new(workflow) }
+    context 'the method is on the workflow' do
+      before { state_class.on_exit :workflow_hook }
+      it "can call the method" do
+        expect(workflow).to receive(:workflow_hook)
+        state.fire_callbacks(:on_exit, {})
+      end
+    end
+  end
+
   describe 'after_enter' do
     let(:state) { state_class.new(workflow) }
     context 'the method is on the workflow' do
