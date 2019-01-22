@@ -1,3 +1,8 @@
+# 0.2.3 - 2019-01-22
+
+* Add `on_exit` callback for states (https://github.com/tablexi/flow_machine/pull/15)
+* Run rubocop (https://github.com/tablexi/flow_machine/pull/16)
+
 # 0.2.2 - 2019-01-11
 
 * Fix issue where the scopes and predicates created by `FlowMachine::Workflow.create_scopes_on`
